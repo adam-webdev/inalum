@@ -30,6 +30,9 @@
             font-size: 22px;
         }
 
+
+
+
         .table1,
         .table-custom {
             width: 100%;
@@ -341,8 +344,8 @@
                     <tr>
                         <td class="col-20"><input type="text" name="kendaraan[]"></td>
                         <td class="col-50"><input type="text" name="isipekerjaan[]"></td>
-                        <td class="col-10"> <input type="text" name="mulai[]"></td>
-                        <td class="col-10"><input type="text" name="selesai[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai[]"></td>
+                        <td class="col-10"><input type="time" name="selesai[]"></td>
                         <td class="col-10"><input type="text" name="status[]"></td>
                     </tr>
 
@@ -361,8 +364,8 @@
                     <tr>
                         <td class="col-20"><input type="text" name="kendaraan[]"></td>
                         <td class="col-50"><input type="text" name="isipekerjaan[]"></td>
-                        <td class="col-10"> <input type="text" name="mulai[]"></td>
-                        <td class="col-10"><input type="text" name="selesai[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai[]"></td>
+                        <td class="col-10"><input type="time" name="selesai[]"></td>
                         <td class="col-10"><input type="text" name="status[]"></td>
                     </tr>
 
