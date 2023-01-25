@@ -31,8 +31,6 @@
         }
 
 
-
-
         .table1,
         .table-custom {
             width: 100%;
@@ -52,22 +50,28 @@
 
         }
 
+
+
         .schedule,
         .others {
             font-size: 30px;
             font-weight: 800;
             border: 2px solid black;
-            background-color: rgb(203, 203, 84);
+            /* background-color: rgb(203, 203, 84); */
             /* margin-top: -7px; */
             word-spacing: 30px;
             color: black;
             padding-left: 10px;
             margin-bottom: -1px;
+            border-right: none;
+            border-top: none;
         }
 
         .trouble {
             background-color: rgb(89, 135, 210);
-            margin-bottom: -1px;
+            border-right: none;
+            border-top: none;
+
         }
 
         .table-bordered-custom,
@@ -75,13 +79,14 @@
             border: 2px solid black;
             border-collapse: collapse;
             text-align: center;
+            padding: 0;
             height: 40px;
             font-weight: bold;
         }
 
 
         table>tbody>tr>td>input {
-            width: 90%;
+            width: 100%;
             height: 30px;
             border: none;
             font-weight: bold;
@@ -120,6 +125,11 @@
             font-weight: bold;
         }
 
+        .col-25 {
+            width: 25%;
+            font-weight: bold;
+        }
+
         .col-50 {
             width: 50%;
             font-weight: bold;
@@ -127,6 +137,10 @@
 
         .col-4 {
             width: 4%;
+        }
+
+        .h30>input {
+            height: 60px !important;
         }
 
         #fscreen {
@@ -138,6 +152,34 @@
         .other input {
             width: 100%;
             height: 80px;
+            position: relative;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(89, 135, 210);
+        }
+
+        .flex-kendaraan {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(180, 192, 188);
+            border: 2px solid black;
+            align-items: center;
+        }
+
+        .kendaraan2 {
+            padding-left: 4px;
+            font-size: 30px;
+            text-align: center;
+            border-right: none;
+            border-bottom: 2px solid black;
+            background-color: rgb(180, 192, 188);
+            margin-bottom: -2px;
+            font-weight: bold;
+            color: black;
         }
     </style>
 @endsection
@@ -331,9 +373,12 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="schedule">SCHEDULE PREVENTIVE MAINTENANCE</p>
+            <div class="flex">
+                <p class="schedule">SCHEDULE PREVENTIVE MAINTENANCE</p>
+                <button type="button" class="add-schedule">add</button>
+            </div>
             <table class="table-custom table-bordered-custom">
-                <tbody>
+                <tbody id="add-row-schedule">
                     <tr>
                         <td class="col-20">KEND.</td>
                         <td class="col-50"> ISI PEKERJAAN</td>
@@ -351,19 +396,24 @@
 
                 </tbody>
             </table>
-            <p class="schedule trouble">TROUBLE</p>
+            <div class="flex">
+                <p class="schedule trouble">TROUBLE</p>
+                <button type="button" class="add-trouble">add</button>
+            </div>
             <table class="table-custom table-bordered-custom">
-                <tbody>
+                <tbody id="add-row-trouble">
                     <tr>
                         <td class="col-20">KEND.</td>
-                        <td class="col-50"> ISI PEKERJAAN</td>
+                        <td class="col-25">JENIS KERUSAKAN</td>
+                        <td class="col-25"> ISI PEKERJAAN</td>
                         <td class="col-10"> MULAI</td>
                         <td class="col-10">SELESAI</td>
                         <td class="col-10">STATUS</td>
                     </tr>
                     <tr>
                         <td class="col-20"><input type="text" name="kendaraan[]"></td>
-                        <td class="col-50"><input type="text" name="isipekerjaan[]"></td>
+                        <td class="col-25"><input type="text" name="jeniskerusakan[]"></td>
+                        <td class="col-25"><input type="text" name="isipekerjaan[]"></td>
                         <td class="col-10"> <input type="time" name="mulai[]"></td>
                         <td class="col-10"><input type="time" name="selesai[]"></td>
                         <td class="col-10"><input type="text" name="status[]"></td>
@@ -371,9 +421,12 @@
 
                 </tbody>
             </table>
-            <p class="schedule others">OTHERS</p>
+            <div class="flex">
+                <p class="schedule others">OTHERS</p>
+                <button type="button" class="add-other">add</button>
+            </div>
             <table class="table-custom table-bordered-custom">
-                <tbody>
+                <tbody id="add-row-other">
                     <tr>
                         <td width="100%" class="other">
                             <input name="others" id="">
@@ -383,6 +436,34 @@
             </table>
             <p><br></p>
 
+
+            <div class="flex-kendaraan">
+                <p class="kendaraan2">DAFTAR KOTRAKTOR YANG BEKERJA DI GEDUNG REDUKSI</p>
+                <button type="button" class="add-kendaraan">add</button>
+            </div>
+            <table class="table1 table-bordered-custom">
+                <tbody id="add-row-kendaraan">
+                    <tr>
+                        <td class="col-4">NO</td>
+                        <td class="col-6">TGL</td>
+                        <td class="col-10">WAKTU</td>
+                        <td class="col-30">KONTRAKTOR</td>
+                        <td class="col-30">JENIS PEKERJAAN</td>
+                        <td class="col-10">LOKASI</td>
+                        <td class="col-10">KET</td>
+                    </tr>
+                    <tr>
+                        <td class="col-4" id="no">1</td>
+                        <td class="col-6 h-30px"><input type="text" name="tgl_kendaraan[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="watku_kendaraan[]"></td>
+                        <td class="col-30 h-30px"><input type="text" name="kontraktor[]"></td>
+                        <td class="col-30 h-30px"><input type="text" name="jenis_pekerjaan[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="lokasi[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="ket[]"></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </form>
     </div>
 
@@ -390,10 +471,84 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $("#fscreen").css({
-                width: $(document).width(),
-                height: $(document).height()
-            });
+            $('.add-other').on('click', function() {
+                $('#add-row-other').append(`
+                 <tr class="child">
+                        <td width="100%" class="other">
+                            <input name="others" id="">
+                        </td>
+                        <td>
+                             <button  type="button" class="btn btn-sm btn-danger delete-other btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `)
+            })
+            $(document).on('click', '.delete-other', function() {
+                $(this).parents('.child').remove()
+            })
+
+            $('.add-schedule').on('click', function() {
+                $('#add-row-schedule').append(`
+                    <tr class="child-schedule">
+                        <td class="col-20"><input type="text" name="kendaraan[]"></td>
+                        <td class="col-25"><input type="text" name="isipekerjaan[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai[]"></td>
+                        <td class="col-10"><input type="time" name="selesai[]"></td>
+                        <td class="col-10"><input type="text" name="status[]"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger delete-schedule">
+                            <i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `)
+            })
+            $(document).on('click', '.delete-schedule', function() {
+                $(this).parents('.child-schedule').remove()
+            })
+
+            $('.add-trouble').on('click', function() {
+                $('#add-row-trouble').append(`
+                    <tr class="child-trouble">
+                        <td class="col-20"><input type="text" name="kendaraan[]"></td>
+                        <td class="col-25"><input type="text" name="jenispekerjaan[]"></td>
+                        <td class="col-25"><input type="text" name="isipekerjaan[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai[]"></td>
+                        <td class="col-10"><input type="time" name="selesai[]"></td>
+                        <td class="col-10"><input type="text" name="status[]"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger delete-trouble">
+                            <i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `)
+            })
+            $(document).on('click', '.delete-trouble', function() {
+                $(this).parents('.child-trouble').remove()
+            })
+
+            var no = 1
+
+            console.log(no)
+            $('.add-kendaraan').on('click', function() {
+                $('#add-row-kendaraan').append(`
+                    <tr class="child-kendaraan">
+                       <td class="col-4" id="no">${++no}</td>
+                        <td class="col-6 h-30px"><input type="text" name="tgl_kendaraan[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="watku_kendaraan[]"></td>
+                        <td class="col-30 h-30px"><input type="text" name="kontraktor[]"></td>
+                        <td class="col-30 h-30px"><input type="text" name="jenis_pekerjaan[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="lokasi[]"></td>
+                        <td class="col-10 h-30px"><input type="text" name="ket[]"></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger delete-kendaraan">
+                            <i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `)
+            })
+            $(document).on('click', '.delete-kendaraan', function() {
+                $(this).parents('.child-kendaraan').remove()
+            })
         });
     </script>
 
