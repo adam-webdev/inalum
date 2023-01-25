@@ -375,7 +375,7 @@
             </table>
             <div class="flex">
                 <p class="schedule">SCHEDULE PREVENTIVE MAINTENANCE</p>
-                <button type="button" class="add-schedule">add</button>
+                <button type="button" class="add-schedule mr-2"><i class="fas fa-plus"></i></button>
             </div>
             <table class="table-custom table-bordered-custom">
                 <tbody id="add-row-schedule">
@@ -398,7 +398,7 @@
             </table>
             <div class="flex">
                 <p class="schedule trouble">TROUBLE</p>
-                <button type="button" class="add-trouble">add</button>
+                <button type="button" class="add-trouble mr-2"><i class="fas fa-plus"></i></button>
             </div>
             <table class="table-custom table-bordered-custom">
                 <tbody id="add-row-trouble">
@@ -423,7 +423,7 @@
             </table>
             <div class="flex">
                 <p class="schedule others">OTHERS</p>
-                <button type="button" class="add-other">add</button>
+                <button type="button" class="add-other mr-2"><i class="fas fa-plus"></i></button>
             </div>
             <table class="table-custom table-bordered-custom">
                 <tbody id="add-row-other">
@@ -439,7 +439,7 @@
 
             <div class="flex-kendaraan">
                 <p class="kendaraan2">DAFTAR KOTRAKTOR YANG BEKERJA DI GEDUNG REDUKSI</p>
-                <button type="button" class="add-kendaraan">add</button>
+                <button type="button" class="add-kendaraan mr-2"><i class="fas fa-plus"></i></button>
             </div>
             <table class="table1 table-bordered-custom">
                 <tbody id="add-row-kendaraan">
@@ -547,6 +547,7 @@
                 `)
             })
             $(document).on('click', '.delete-kendaraan', function() {
+                --no
                 $(this).parents('.child-kendaraan').remove()
             })
         });
