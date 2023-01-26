@@ -17,7 +17,7 @@
     <link href="{{ asset('asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
 
-<body style="background: rgb(132, 127, 127);">
+<body style="background: rgb(233, 242, 255);">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">

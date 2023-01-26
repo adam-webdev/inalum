@@ -15,6 +15,11 @@
             font-family: 'Poppins';
         }
 
+        .th {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
         .card {
             margin-top: 80px;
             display: flex;
@@ -36,7 +41,7 @@
         }
 
         .tanggal {
-            width: 50%;
+            width: 30%;
             padding: 0 4px;
             background-color: rgb(215, 215, 114);
             border: 2px solid black;
@@ -208,12 +213,64 @@
             color: black;
             height: 40px;
         }
+
+        .card-tampilkan {
+            /* background: rgb(96, 96, 96); */
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgb(32 33 36 / 18%);
+            font-size: 18px;
+            position: sticky;
+        }
+
+        label {
+            font-size: 20px;
+        }
+
+        .card-tampilkan input {
+            border: 2px solid black;
+            padding: 3px;
+            width: 250px;
+            background: white;
+        }
+
+        .tampilkan-btn,
+        .input {
+            padding: 6px 12px;
+            font-size: 18px;
+            background: rgb(89, 135, 210);
+            border: 2px solid black;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .tampilkan-btn:hover,
+        .input:hover {
+            transition: .5s;
+            box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.4);
+        }
+
+        .bg-yellow {
+            background-color: rgb(203, 203, 84);
+        }
     </style>
 </head>
 
-<body>
+<body style="background: rgb(233, 242, 255)">
 
-
+    <div class="card-tampilkan">
+        <form action="" method="post">
+            <label for="">Filter :</label>
+            <input type="date" class="form-control" name="tanggal" id="tanggal">
+            <button class="tampilkan-btn">Tampilkan</button>
+        </form>
+        <a href="#" class="input">Input Jadwal</a>
+    </div>
 
     <div class="card">
         <div class="left">
@@ -238,9 +295,9 @@
                 </tbody>
             </table>
             <p><br></p>
-            <table class="table-custom table-bordered-custom" style="margin-top: -55px">
+            <table class="table-custom table-bordered-custom" style="margin-top: -57px">
                 <tbody>
-                    <tr>
+                    <tr class="th">
                         <td class="col-12">SUBSEKSI</td>
                         <td class="col-12"> F.R</td>
                         <td class="col-12">F.H</td>
@@ -411,7 +468,7 @@
                 <p class="schedule">SCHEDULE PREVENTIVE MAINTENANCE</p>
                 <table class="table-custom table-bordered-custom">
                     <tbody id="add-row-schedule">
-                        <tr>
+                        <tr class="th">
                             <td class="col-20">KEND.</td>
                             <td class="col-50"> ISI PEKERJAAN</td>
                             <td class="col-10"> MULAI</td>
@@ -434,7 +491,7 @@
                 <p class="schedule trouble">TROUBLE</p>
                 <table class="table-custom table-bordered-custom">
                     <tbody id="add-row-trouble">
-                        <tr>
+                        <tr class="th">
                             <td class="col-20">KEND.</td>
                             <td class="col-25">JENIS KERUSAKAN</td>
                             <td class="col-25"> ISI PEKERJAAN</td>
@@ -474,14 +531,14 @@
             <p class="kendaraan2">DAFTAR KOTRAKTOR YANG BEKERJA DI GEDUNG REDUKSI</p>
             <table class="table1 table-bordered-custom">
                 <tbody id="add-row-kendaraan">
-                    <tr>
-                        <td class="col-4">NO</td>
-                        <td class="col-6">TGL</td>
-                        <td class="col-10">WAKTU</td>
-                        <td class="col-30">KONTRAKTOR</td>
-                        <td class="col-30">JENIS PEKERJAAN</td>
-                        <td class="col-10">LOKASI</td>
-                        <td class="col-10">KET</td>
+                    <tr class="th">
+                        <td class="col-4 bg-yellow">NO</td>
+                        <td class="col-6  bg-yellow">TGL</td>
+                        <td class="col-10  bg-yellow">WAKTU</td>
+                        <td class="col-30  bg-yellow">KONTRAKTOR</td>
+                        <td class="col-30  bg-yellow">JENIS PEKERJAAN</td>
+                        <td class="col-10  bg-yellow">LOKASI</td>
+                        <td class="col-10  bg-yellow">KET</td>
                     </tr>
                     <tr>
                         <td class="col-4" id="no">1</td>

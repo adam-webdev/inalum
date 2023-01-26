@@ -186,6 +186,12 @@
             font-weight: bold;
             color: black;
         }
+
+        .btn-primary {
+            width: 100%;
+            font-size: 20px;
+            padding: 8px;
+        }
     </style>
 @endsection
 @section('content')
@@ -485,6 +491,7 @@
                     </tr>
                 </tbody>
             </table>
+
             <button type="submit" class="btn btn-primary my-4">Simpan</button>
         </form>
     </div>

@@ -32,8 +32,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar accordion" id="accordionSidebar"
-            style="background: rgb(180, 192, 188); color:#fff;">
+        <ul class="navbar-nav sidebar accordion" id="accordionSidebar" style="background: rgb(34, 34, 34); color:#fff;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand text-white d-flex align-items-center justify-content-center" href="#">
@@ -43,7 +42,7 @@
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider my-0" style="color:#fff;">
 
             <!-- Divider -->
             <hr class="sidebar-divider">
