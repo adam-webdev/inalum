@@ -33,7 +33,7 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar accordion" id="accordionSidebar"
-            style="background:  rgb(203, 203, 84); color:#fff;">
+            style="background: rgb(180, 192, 188); color:#fff;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand text-white d-flex align-items-center justify-content-center" href="#">

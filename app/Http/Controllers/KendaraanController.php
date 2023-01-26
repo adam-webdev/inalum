@@ -14,4 +14,8 @@ class KendaraanController extends Controller
     {
         return view('jadwal.create');
     }
+    public function store(Request $request)
+    {
+        ddd($request->all());
+    }
 }
