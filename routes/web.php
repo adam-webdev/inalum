@@ -18,10 +18,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Auth::routes();
-Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
-// hanya admin yang dapat akses route ini
-Route::resource('/jadwal', KendaraanController::class);
-// Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
 
-Route::resource('/user', UserController::class);
-Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
+Route::get('/', [KendaraanController::class, 'index']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
+    // hanya admin yang dapat akses route ini
+    Route::resource('/jadwal', KendaraanController::class);
+    // Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
+
+    Route::resource('/user', UserController::class);
+    Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
+});

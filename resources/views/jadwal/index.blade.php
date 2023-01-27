@@ -269,7 +269,11 @@
             <input type="date" class="form-control" name="tanggal" id="tanggal">
             <button class="tampilkan-btn">Tampilkan</button>
         </form>
-        <a href="#" class="input">Input Jadwal</a>
+        @if (isset(auth()->user()->name))
+            <a href="{{ route('jadwal.create') }}" class="input">Input Jadwal</a>
+        @else
+            <a href="{{ route('login') }}" class="input">Input Jadwal</a>
+        @endif
     </div>
 
     <div class="card">
