@@ -16,7 +16,7 @@ class CreateKendaraanDiVSTable extends Migration
         Schema::create('kendaraan_di_v_s', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->string('f-st')->nullable();
+            $table->string('fst')->nullable();
             $table->string('general')->nullable();
             $table->timestamps();
         });

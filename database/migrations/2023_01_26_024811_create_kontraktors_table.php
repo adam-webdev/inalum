@@ -16,6 +16,7 @@ class CreateKontraktorsTable extends Migration
         Schema::create('kontraktors', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
+            $table->date('input_tanggal')->nullable();
             $table->time('waktu')->nullable();
             $table->string('kontraktor')->nullable();
             $table->string('jenis_pekerjaan')->nullable();

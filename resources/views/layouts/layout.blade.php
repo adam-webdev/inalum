@@ -18,6 +18,9 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <!-- Custom styles for this template-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="{{ asset('asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -84,9 +87,14 @@
                 </div>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('jadwal.create') }}">
+                <a class="nav-link text-white" href="{{ route('jadwal.index') }}">
                     <i class="fas fa-clock"></i>
                     <span>Data Jadwal</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ route('jadwal.create') }}">
+                    <i class="fas fa-plus"></i>
+                    <span>Tambah Jadwal</span></a>
             </li>
             {{-- @role('Admin')
                 <li class="nav-item">

@@ -17,7 +17,6 @@ class CreateOthersTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('kontent')->nullable();
-            $table->time('waktu')->nullable();
             $table->timestamps();
         });
     }

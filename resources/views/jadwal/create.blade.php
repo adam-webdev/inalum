@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'Tambah Jadwal')
+@include('sweetalert::alert')
 
 @section('css')
     <!-- include libraries(jQuery, bootstrap) -->
@@ -22,7 +23,7 @@
             margin-left: 10px;
         }
 
-        input[type=date] {
+        .tanggal-utama {
             width: 80%;
             background-color: transparent;
             outline: none;
@@ -80,13 +81,14 @@
             border-collapse: collapse;
             text-align: center;
             padding: 0;
+            box-sizing: border-box;
             height: 40px;
             font-weight: bold;
         }
 
-
-        table>tbody>tr>td>input {
+        table tbody tr td input {
             width: 100%;
+            height: 100%;
             height: 30px;
             border: none;
             font-weight: bold;
@@ -98,50 +100,72 @@
 
         .col-left-1 {
             width: 80%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-left-2 {
             width: 20%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-12 {
             width: 12%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-6 {
             width: 6%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-4 {
             width: 4%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-10 {
             width: 10%;
+            margin: 0;
+            padding: 0;
         }
 
         .col-20 {
             width: 20%;
+            margin: 0;
+            padding: 0;
             /* font-weight: bold; */
         }
 
         .col-25 {
             width: 25%;
             font-weight: bold;
+            margin: 0;
+            padding: 0;
         }
 
         .col-50 {
             width: 50%;
             font-weight: bold;
+            margin: 0;
+            padding: 0;
         }
 
         .col-74 {
             width: 74%;
             border: none;
+            margin: 0;
+            padding: 0;
         }
 
         .col-4 {
             width: 4%;
+            margin: 0;
+            padding: 0;
         }
 
         .h30>input {
@@ -195,13 +219,19 @@
     </style>
 @endsection
 @section('content')
+    @if (Session::get('pesan'))
+        <div class="alert alert-danger pesan-erorr d-flex justify-content-between align-items-center">
+            <p> {{ Session::get('pesan') }} </p>
+            <p style="font-weight: bold" id="close">X</p>
+        </div>
+    @endif
     <div class="card">
         <form action="{{ route('jadwal.store') }}" method="post">
             @csrf
             <div class="row  justify-content-between align-items-center ">
                 <div class="tanggal">
                     <label for="tanggal">Tanggal :</label>
-                    <input type="date" name="tanggal" required>
+                    <input class="tanggal-utama" type="date" name="tanggal" required>
                 </div>
                 <span class="fas fa-expand-arrows-alt fa-2x" style="color:black; margin-right:18px;cursor:pointer;"></span>
             </div>
@@ -252,145 +282,145 @@
                 <tbody>
                     <tr>
                         <td class="col-12">PL-1(St-1 & 2)</td>
-                        <td class="col-6"> <input type="text" name="pl1-fr1"></td>
-                        <td class="col-6"> <input type="text" name="pl1-fr2"></td>
-                        <td class="col-6"><input type="text" name="pl1-fh1"></td>
-                        <td class="col-6"><input type="text" name="pl1-fh2"></td>
-                        <td class="col-6"><input type="text" name="pl1-fs1"></td>
-                        <td class="col-6"><input type="text" name="pl1-fr2"></td>
-                        <td class="col-4"><input type="text" name="pl1-st"></td>
-                        <td class="col-4"><input type="text" name="pl1-sw"></td>
-                        <td class="col-4"><input type="text" name="pl1-af"></td>
-                        <td class="col-4"><input type="text" name="pl1-tr"></td>
-                        <td class="col-4"><input type="text" name="pl1-s"></td>
-                        <td class="col-6"><input type="text" name="pl1-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="pl1-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="pl1_fr1"></td>
+                        <td class="col-6"> <input type="text" name="pl1_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl1_fh1"></td>
+                        <td class="col-6"><input type="text" name="pl1_fh2"></td>
+                        <td class="col-6"><input type="text" name="pl1_fs1"></td>
+                        <td class="col-6"><input type="text" name="pl1_fr2"></td>
+                        <td class="col-4"><input type="text" name="pl1_st"></td>
+                        <td class="col-4"><input type="text" name="pl1_sw"></td>
+                        <td class="col-4"><input type="text" name="pl1_af"></td>
+                        <td class="col-4"><input type="text" name="pl1_tr"></td>
+                        <td class="col-4"><input type="text" name="pl1_s"></td>
+                        <td class="col-6"><input type="text" name="pl1_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="pl1_lainlain2"></td>
                         <td class="col-10">FST</td>
                         <td class="col-10">General</td>
                     </tr>
                     <tr>
                         <td class="col-12">PL-2(St-3 & 4)</td>
-                        <td class="col-6"> <input type="text" name="pl2-fr1"></td>
-                        <td class="col-6"> <input type="text" name="pl2-fr2"></td>
-                        <td class="col-6"><input type="text" name="pl2-fh1"></td>
-                        <td class="col-6"><input type="text" name="pl2-fh2"></td>
-                        <td class="col-6"><input type="text" name="pl2-fs1"></td>
-                        <td class="col-6"><input type="text" name="pl2-fr2"></td>
-                        <td class="col-4"><input type="text" name="pl2-st"></td>
-                        <td class="col-4"><input type="text" name="pl2-sw"></td>
-                        <td class="col-4"><input type="text" name="pl2-af"></td>
-                        <td class="col-4"><input type="text" name="pl2-tr"></td>
-                        <td class="col-4"><input type="text" name="pl2-s"></td>
-                        <td class="col-6"><input type="text" name="pl2-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="pl2-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="pl2_fr1"></td>
+                        <td class="col-6"> <input type="text" name="pl2_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl2_fh1"></td>
+                        <td class="col-6"><input type="text" name="pl2_fh2"></td>
+                        <td class="col-6"><input type="text" name="pl2_fs1"></td>
+                        <td class="col-6"><input type="text" name="pl2_fr2"></td>
+                        <td class="col-4"><input type="text" name="pl2_st"></td>
+                        <td class="col-4"><input type="text" name="pl2_sw"></td>
+                        <td class="col-4"><input type="text" name="pl2_af"></td>
+                        <td class="col-4"><input type="text" name="pl2_tr"></td>
+                        <td class="col-4"><input type="text" name="pl2_s"></td>
+                        <td class="col-6"><input type="text" name="pl2_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="pl2_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">PL-3(St-5 & 6)</td>
-                        <td class="col-6"> <input type="text" name="pl3-fr1"></td>
-                        <td class="col-6"> <input type="text" name="pl3-fr2"></td>
-                        <td class="col-6"><input type="text" name="pl3-fh1"></td>
-                        <td class="col-6"><input type="text" name="pl3-fh2"></td>
-                        <td class="col-6"><input type="text" name="pl3-fs1"></td>
-                        <td class="col-6"><input type="text" name="pl3-fr2"></td>
-                        <td class="col-4"><input type="text" name="pl3-st"></td>
-                        <td class="col-4"><input type="text" name="pl3-sw"></td>
-                        <td class="col-4"><input type="text" name="pl3-af"></td>
-                        <td class="col-4"><input type="text" name="pl3-tr"></td>
-                        <td class="col-4"><input type="text" name="pl3-s"></td>
-                        <td class="col-6"><input type="text" name="pl3-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="pl3-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="pl3_fr1"></td>
+                        <td class="col-6"> <input type="text" name="pl3_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl3_fh1"></td>
+                        <td class="col-6"><input type="text" name="pl3_fh2"></td>
+                        <td class="col-6"><input type="text" name="pl3_fs1"></td>
+                        <td class="col-6"><input type="text" name="pl3_fr2"></td>
+                        <td class="col-4"><input type="text" name="pl3_st"></td>
+                        <td class="col-4"><input type="text" name="pl3_sw"></td>
+                        <td class="col-4"><input type="text" name="pl3_af"></td>
+                        <td class="col-4"><input type="text" name="pl3_tr"></td>
+                        <td class="col-4"><input type="text" name="pl3_s"></td>
+                        <td class="col-6"><input type="text" name="pl3_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="pl3_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">Start-Up</td>
-                        <td class="col-6"> <input type="text" name="startup-fr1"></td>
-                        <td class="col-6"> <input type="text" name="startup-fr2"></td>
-                        <td class="col-6"><input type="text" name="startup-fh1"></td>
-                        <td class="col-6"><input type="text" name="startup-fh2"></td>
-                        <td class="col-6"><input type="text" name="startup-fs1"></td>
-                        <td class="col-6"><input type="text" name="startup-fr2"></td>
-                        <td class="col-4"><input type="text" name="startup-st"></td>
-                        <td class="col-4"><input type="text" name="startup-sw"></td>
-                        <td class="col-4"><input type="text" name="startup-af"></td>
-                        <td class="col-4"><input type="text" name="startup-tr"></td>
-                        <td class="col-4"><input type="text" name="startup-s"></td>
-                        <td class="col-6"><input type="text" name="startup-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="startup-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="startup_fr1"></td>
+                        <td class="col-6"> <input type="text" name="startup_fr2"></td>
+                        <td class="col-6"><input type="text" name="startup_fh1"></td>
+                        <td class="col-6"><input type="text" name="startup_fh2"></td>
+                        <td class="col-6"><input type="text" name="startup_fs1"></td>
+                        <td class="col-6"><input type="text" name="startup_fr2"></td>
+                        <td class="col-4"><input type="text" name="startup_st"></td>
+                        <td class="col-4"><input type="text" name="startup_sw"></td>
+                        <td class="col-4"><input type="text" name="startup_af"></td>
+                        <td class="col-4"><input type="text" name="startup_tr"></td>
+                        <td class="col-4"><input type="text" name="startup_s"></td>
+                        <td class="col-6"><input type="text" name="startup_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="startup_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">TRP</td>
-                        <td class="col-6"> <input type="text" name="trp-fr1"></td>
-                        <td class="col-6"> <input type="text" name="trp-fr2"></td>
-                        <td class="col-6"><input type="text" name="trp-fh1"></td>
-                        <td class="col-6"><input type="text" name="trp-fh2"></td>
-                        <td class="col-6"><input type="text" name="trp-fs1"></td>
-                        <td class="col-6"><input type="text" name="trp-fr2"></td>
-                        <td class="col-4"><input type="text" name="trp-st"></td>
-                        <td class="col-4"><input type="text" name="trp-sw"></td>
-                        <td class="col-4"><input type="text" name="trp-af"></td>
-                        <td class="col-4"><input type="text" name="trp-tr"></td>
-                        <td class="col-4"><input type="text" name="trp-s"></td>
-                        <td class="col-6"><input type="text" name="trp-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="trp-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="trp_fr1"></td>
+                        <td class="col-6"> <input type="text" name="trp_fr2"></td>
+                        <td class="col-6"><input type="text" name="trp_fh1"></td>
+                        <td class="col-6"><input type="text" name="trp_fh2"></td>
+                        <td class="col-6"><input type="text" name="trp_fs1"></td>
+                        <td class="col-6"><input type="text" name="trp_fr2"></td>
+                        <td class="col-4"><input type="text" name="trp_st"></td>
+                        <td class="col-4"><input type="text" name="trp_sw"></td>
+                        <td class="col-4"><input type="text" name="trp_af"></td>
+                        <td class="col-4"><input type="text" name="trp_tr"></td>
+                        <td class="col-4"><input type="text" name="trp_s"></td>
+                        <td class="col-6"><input type="text" name="trp_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="trp_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">GC</td>
-                        <td class="col-6"> <input type="text" name="gc-fr1"></td>
-                        <td class="col-6"> <input type="text" name="gc-fr2"></td>
-                        <td class="col-6"><input type="text" name="gc-fh1"></td>
-                        <td class="col-6"><input type="text" name="gc-fh2"></td>
-                        <td class="col-6"><input type="text" name="gc-fs1"></td>
-                        <td class="col-6"><input type="text" name="gc-fr2"></td>
-                        <td class="col-4"><input type="text" name="gc-st"></td>
-                        <td class="col-4"><input type="text" name="gc-sw"></td>
-                        <td class="col-4"><input type="text" name="gc-af"></td>
-                        <td class="col-4"><input type="text" name="gc-tr"></td>
-                        <td class="col-4"><input type="text" name="gc-s"></td>
-                        <td class="col-6"><input type="text" name="gc-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="gc-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="gc_fr1"></td>
+                        <td class="col-6"> <input type="text" name="gc_fr2"></td>
+                        <td class="col-6"><input type="text" name="gc_fh1"></td>
+                        <td class="col-6"><input type="text" name="gc_fh2"></td>
+                        <td class="col-6"><input type="text" name="gc_fs1"></td>
+                        <td class="col-6"><input type="text" name="gc_fr2"></td>
+                        <td class="col-4"><input type="text" name="gc_st"></td>
+                        <td class="col-4"><input type="text" name="gc_sw"></td>
+                        <td class="col-4"><input type="text" name="gc_af"></td>
+                        <td class="col-4"><input type="text" name="gc_tr"></td>
+                        <td class="col-4"><input type="text" name="gc_s"></td>
+                        <td class="col-6"><input type="text" name="gc_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="gc_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">CP / CF</td>
-                        <td class="col-6"> <input type="text" name="cpcf-fr1"></td>
-                        <td class="col-6"> <input type="text" name="cpcf-fr2"></td>
-                        <td class="col-6"><input type="text" name="cpcf-fh1"></td>
-                        <td class="col-6"><input type="text" name="cpcf-fh2"></td>
-                        <td class="col-6"><input type="text" name="cpcf-fs1"></td>
-                        <td class="col-6"><input type="text" name="cpcf-fr2"></td>
-                        <td class="col-4"><input type="text" name="cpcf-st"></td>
-                        <td class="col-4"><input type="text" name="cpcf-sw"></td>
-                        <td class="col-4"><input type="text" name="cpcf-af"></td>
-                        <td class="col-4"><input type="text" name="cpcf-tr"></td>
-                        <td class="col-4"><input type="text" name="cpcf-s"></td>
-                        <td class="col-6"><input type="text" name="cpcf-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="cpcf-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="cpcf_fr1"></td>
+                        <td class="col-6"> <input type="text" name="cpcf_fr2"></td>
+                        <td class="col-6"><input type="text" name="cpcf_fh1"></td>
+                        <td class="col-6"><input type="text" name="cpcf_fh2"></td>
+                        <td class="col-6"><input type="text" name="cpcf_fs1"></td>
+                        <td class="col-6"><input type="text" name="cpcf_fr2"></td>
+                        <td class="col-4"><input type="text" name="cpcf_st"></td>
+                        <td class="col-4"><input type="text" name="cpcf_sw"></td>
+                        <td class="col-4"><input type="text" name="cpcf_af"></td>
+                        <td class="col-4"><input type="text" name="cpcf_tr"></td>
+                        <td class="col-4"><input type="text" name="cpcf_s"></td>
+                        <td class="col-6"><input type="text" name="cpcf_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="cpcf_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
                     <tr>
                         <td class="col-12">MSR</td>
                         <td class="col-6"> <input type="text" name="msr-fr1"></td>
-                        <td class="col-6"> <input type="text" name="msr-fr2"></td>
-                        <td class="col-6"><input type="text" name="msr-fh1"></td>
-                        <td class="col-6"><input type="text" name="msr-fh2"></td>
-                        <td class="col-6"><input type="text" name="msr-fs1"></td>
-                        <td class="col-6"><input type="text" name="msr-fr2"></td>
-                        <td class="col-4"><input type="text" name="msr-st"></td>
-                        <td class="col-4"><input type="text" name="msr-sw"></td>
-                        <td class="col-4"><input type="text" name="msr-af"></td>
-                        <td class="col-4"><input type="text" name="msr-tr"></td>
-                        <td class="col-4"><input type="text" name="msr-s"></td>
-                        <td class="col-6"><input type="text" name="msr-lainlain1"></td>
-                        <td class="col-6"><input type="text" name="msr-lainlain2"></td>
+                        <td class="col-6"> <input type="text" name="msr_fr2"></td>
+                        <td class="col-6"><input type="text" name="msr-_h1"></td>
+                        <td class="col-6"><input type="text" name="msr_fh2"></td>
+                        <td class="col-6"><input type="text" name="msr_fs1"></td>
+                        <td class="col-6"><input type="text" name="msr_fr2"></td>
+                        <td class="col-4"><input type="text" name="msr_st"></td>
+                        <td class="col-4"><input type="text" name="msr_sw"></td>
+                        <td class="col-4"><input type="text" name="msr_af"></td>
+                        <td class="col-4"><input type="text" name="msr_tr"></td>
+                        <td class="col-4"><input type="text" name="msr_s"></td>
+                        <td class="col-6"><input type="text" name="msr_lainlain1"></td>
+                        <td class="col-6"><input type="text" name="msr_lainlain2"></td>
                         <td class="col-10"><input type="text" name="fst[]"></td>
                         <td class="col-10"><input type="text" name="general[]"></td>
                     </tr>
@@ -415,11 +445,11 @@
                         <td class="col-10">STATUS</td>
                     </tr>
                     <tr>
-                        <td class="col-20"><input type="text" name="kendaraan-schedule[]"></td>
-                        <td class="col-50"><input type="text" name="isipekerjaan-schedule[]"></td>
-                        <td class="col-10"> <input type="time" name="mulai-schedule[]"></td>
-                        <td class="col-10"><input type="time" name="selesai-schedule[]"></td>
-                        <td class="col-10"><input type="text" name="status-schedule[]"></td>
+                        <td class="col-20"><input type="text" name="kendaraan_schedule[]"></td>
+                        <td class="col-50"><input type="text" name="isipekerjaan_schedule[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai_schedule[]"></td>
+                        <td class="col-10"><input type="time" name="selesai_schedule[]"></td>
+                        <td class="col-10"><input type="text" name="status_schedule[]"></td>
                     </tr>
 
                 </tbody>
@@ -433,18 +463,18 @@
                     <tr>
                         <td class="col-20">KEND.</td>
                         <td class="col-25">JENIS KERUSAKAN</td>
-                        <td class="col-25"> ISI PEKERJAAN</td>
+                        <td class="col-25"> ISI PERBAIKAN</td>
                         <td class="col-10"> MULAI</td>
                         <td class="col-10">SELESAI</td>
                         <td class="col-10">STATUS</td>
                     </tr>
                     <tr>
-                        <td class="col-20"><input type="text" name="kendaraan-trouble[]"></td>
-                        <td class="col-25"><input type="text" name="jeniskerusakan-trouble[]"></td>
-                        <td class="col-25"><input type="text" name="isiperbaikan-trouble[]"></td>
-                        <td class="col-10"> <input type="time" name="mulai-trouble[]"></td>
-                        <td class="col-10"><input type="time" name="selesai-trouble[]"></td>
-                        <td class="col-10"><input type="text" name="status-trouble[]"></td>
+                        <td class="col-20"><input type="text" name="kendaraan_trouble[]"></td>
+                        <td class="col-25"><input type="text" name="jeniskerusakan_trouble[]"></td>
+                        <td class="col-25"><input type="text" name="isiperbaikan_trouble[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai_trouble[]"></td>
+                        <td class="col-10"><input type="time" name="selesai_trouble[]"></td>
+                        <td class="col-10"><input type="text" name="status_trouble[]"></td>
                     </tr>
 
                 </tbody>
@@ -457,7 +487,7 @@
                 <tbody id="add-row-other">
                     <tr>
                         <td width="100%" class="other">
-                            <input name="others" id="">
+                            <input name="others[]" id="">
                         </td>
                     </tr>
                 </tbody>
@@ -482,8 +512,8 @@
                     </tr>
                     <tr>
                         <td class="col-4" id="no">1</td>
-                        <td class="col-6 h-30px"><input type="text" name="tgl_kendaraan[]"></td>
-                        <td class="col-10 h-30px"><input type="text" name="watku_kendaraan[]"></td>
+                        <td class="col-6 h-30px"><input type="date" name="tgl_kendaraan[]"></td>
+                        <td class="col-10 h-30px"><input type="time" name="waktu_kendaraan[]"></td>
                         <td class="col-30 h-30px"><input type="text" name="kontraktor[]"></td>
                         <td class="col-30 h-30px"><input type="text" name="jenis_pekerjaan[]"></td>
                         <td class="col-10 h-30px"><input type="text" name="lokasi[]"></td>
@@ -523,7 +553,7 @@
                 $('#add-row-other').append(`
                  <tr class="child">
                         <td width="100%" class="other">
-                            <input name="others" id="">
+                            <input name="others[]" id="">
                         </td>
                         <td>
                              <button  type="button" class="btn btn-sm btn-danger delete-other btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -538,11 +568,11 @@
             $('.add-schedule').on('click', function() {
                 $('#add-row-schedule').append(`
                     <tr class="child-schedule">
-                        <td class="col-20"><input type="text" name="kendaraan-schedule[]"></td>
-                        <td class="col-25"><input type="text" name="isipekerjaan-schedule[]"></td>
-                        <td class="col-10"> <input type="time" name="mulai-shedule[]"></td>
-                        <td class="col-10"><input type="time" name="selesai-schedule[]"></td>
-                        <td class="col-10"><input type="text" name="status-schedule[]"></td>
+                        <td class="col-20"><input type="text" name="kendaraan_schedule[]"></td>
+                        <td class="col-25"><input type="text" name="isipekerjaan_schedule[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai_shedule[]"></td>
+                        <td class="col-10"><input type="time" name="selesai_schedule[]"></td>
+                        <td class="col-10"><input type="text" name="status_schedule[]"></td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger delete-schedule">
                             <i class="fas fa-trash-alt"></i></button>
@@ -557,12 +587,12 @@
             $('.add-trouble').on('click', function() {
                 $('#add-row-trouble').append(`
                     <tr class="child-trouble">
-                        <td class="col-20"><input type="text" name="kendaraan-trouble[]"></td>
-                        <td class="col-25"><input type="text" name="jeniskerusakan-trouble[]"></td>
-                        <td class="col-25"><input type="text" name="isiperbaikan-trouble[]"></td>
-                        <td class="col-10"> <input type="time" name="mulai-trouble[]"></td>
-                        <td class="col-10"><input type="time" name="selesai-trouble[]"></td>
-                        <td class="col-10"><input type="text" name="status-trouble[]"></td>
+                        <td class="col-20"><input type="text" name="kendaraan_trouble[]"></td>
+                        <td class="col-25"><input type="text" name="jeniskerusakan_trouble[]"></td>
+                        <td class="col-25"><input type="text" name="isiperbaikan_trouble[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai_trouble[]"></td>
+                        <td class="col-10"><input type="time" name="selesai_trouble[]"></td>
+                        <td class="col-10"><input type="text" name="status_trouble[]"></td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger delete-trouble">
                             <i class="fas fa-trash-alt"></i></button>
@@ -581,10 +611,10 @@
                 $('#add-row-kendaraan').append(`
                     <tr class="child-kendaraan">
                        <td class="col-4" id="no">${++no}</td>
-                        <td class="col-6 h-30px"><input type="text" name="tgl_kendaraan[]"></td>
-                        <td class="col-10 h-30px"><input type="text" name="watku_kendaraan[]"></td>
+                        <td class="col-6 h-30px"><input type="date" name="tgl_kendaraan[]"></td>
+                        <td class="col-10 h-30px"><input type="time" name="waktu_kendaraan[]"></td>
                         <td class="col-30 h-30px"><input type="text" name="kontraktor[]"></td>
-                        <td class="col-30 h-30px"><input type="text" name="jenis_pekerjaan-[]"></td>
+                        <td class="col-30 h-30px"><input type="text" name="jenis_pekerjaan[]"></td>
                         <td class="col-10 h-30px"><input type="text" name="lokasi[]"></td>
                         <td class="col-10 h-30px"><input type="text" name="ket[]"></td>
                         <td>
@@ -597,6 +627,9 @@
             $(document).on('click', '.delete-kendaraan', function() {
                 --no
                 $(this).parents('.child-kendaraan').remove()
+            })
+            $('#close').on('click', function() {
+                $('.pesan-erorr').css('display', 'none')
             })
 
         });

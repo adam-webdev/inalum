@@ -17,7 +17,7 @@ class CreateTroubleTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('kendaraan')->nullable();
-            $table->string('jenis_pekerjaan')->nullable();
+            $table->string('jenis_kerusakan')->nullable();
             $table->string('isi_perbaikan')->nullable();
             $table->time('mulai')->nullable();
             $table->time('selesai')->nullable();
