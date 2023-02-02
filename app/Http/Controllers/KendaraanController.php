@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kendaraan;
+use App\Models\KendaraanDiVS;
+use App\Models\Kontraktor;
+use App\Models\Other;
 use App\Models\Schedule;
+use App\Models\Trouble;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,9 +15,29 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class KendaraanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('jadwal.index');
+        $tanggal = '';
+
+        if ($request->tanggal) {
+            $exist_tanggal = Kendaraan::where('tanggal', $request->tanggal)->exists();
+            if ($exist_tanggal) {
+                $tanggal = $request->tanggal;
+            }
+        } else {
+            $tanggal = '2023-01-29';
+        }
+
+        $data = [
+            'trouble' => Trouble::where('tanggal', $tanggal)->get(),
+            'kendaraan' =>  Kendaraan::where('tanggal', $tanggal)->first(),
+            'kendaraanDivs' =>  KendaraanDiVS::where('tanggal', $tanggal)->get(),
+            'kontraktor' =>  Kontraktor::where('tanggal', $tanggal)->get(),
+            'schedule' =>  Schedule::where('tanggal', $tanggal)->get(),
+            'other' =>  Other::where('tanggal', $tanggal)->get(),
+
+        ];
+        return view('jadwal.index', $data);
     }
     public function create()
     {
@@ -122,6 +146,20 @@ class KendaraanController extends Controller
         $add->gc_lainlain1 = $request->gc_lainlain1;
         $add->gc_lainlain2 = $request->gc_lainlain2;
 
+        $add->cpcf_fr1 = $request->cpcf_fr1;
+        $add->cpcf_fr2 = $request->cpcf_fr2;
+        $add->cpcf_fh1 = $request->cpcf_fh1;
+        $add->cpcf_fh2 = $request->cpcf_fh2;
+        $add->cpcf_fs1 = $request->cpcf_fs1;
+        $add->cpcf_fs2 = $request->cpcf_fs2;
+        $add->cpcf_st = $request->cpcf_st;
+        $add->cpcf_sw = $request->cpcf_sw;
+        $add->cpcf_af = $request->cpcf_af;
+        $add->cpcf_tr = $request->cpcf_tr;
+        $add->cpcf_s = $request->cpcf_s;
+        $add->cpcf_lainlain1 = $request->cpcf_lainlain1;
+        $add->cpcf_lainlain2 = $request->cpcf_lainlain2;
+
         $add->msr_fr1 = $request->msr_fr1;
         $add->msr_fr2 = $request->msr_fr2;
         $add->msr_fh1 = $request->msr_fh1;
@@ -212,7 +250,7 @@ class KendaraanController extends Controller
                 'updated_at' => Carbon::now(),
             ];
         }
-        $simpan_kendaraan_dvs = DB::table('kendaraan_di_v_s')->insert($kendaraan_dvs);
+        DB::table('kendaraan_di_v_s')->insert($kendaraan_dvs);
 
 
 
@@ -239,7 +277,18 @@ class KendaraanController extends Controller
             ];
         }
         $simpan_kontraktor = DB::table('kontraktors')->insert($kontraktors);
-        Alert::success('Tersimpan  ', 'Data berhasil tersimpan');
+        Alert::success('Tersimpan', 'Data berhasil tersimpan');
+        return redirect()->back();
+    }
+    public function delete($tanggal)
+    {
+        Trouble::where('tanggal', $tanggal)->delete();
+        Kendaraan::where('tanggal', $tanggal)->delete();
+        KendaraanDiVS::where('tanggal', $tanggal)->delete();
+        Kontraktor::where('tanggal', $tanggal)->delete();
+        Schedule::where('tanggal', $tanggal)->delete();
+        Other::where('tanggal', $tanggal)->delete();
+        Alert::success('Terhapus', 'Data berhasil dihapus');
         return redirect()->back();
     }
 }

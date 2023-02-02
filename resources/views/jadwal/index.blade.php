@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
     <!-- include libraries(jQuery, bootstrap) -->
 
     <style>
@@ -18,7 +17,6 @@
         }
 
         .th {
-            font-size: 18px;
             font-weight: 800;
         }
 
@@ -26,16 +24,36 @@
             margin-top: 80px;
             display: flex;
             width: 100%;
+            justify-content: space-between;
         }
 
         .left {
+
             width: 55%;
         }
 
         .rigth {
             width: 45%;
-            margin-top: 18px;
-            margin-left: 5px;
+            margin-left: 15px;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .card {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .left {
+                width: 100%;
+            }
+
+            .rigth {
+                width: 100%;
+                margin-top: 19px;
+                margin-left: 5px;
+            }
+
         }
 
         .wrapp {
@@ -43,7 +61,7 @@
         }
 
         .tanggal {
-            width: 30%;
+            width: 40%;
             padding: 0 4px;
             background-color: rgb(215, 215, 114);
             border: 2px solid black;
@@ -53,6 +71,10 @@
             font-size: 22px;
             font-weight: bold;
             color: #000;
+        }
+
+        .p-4 {
+            padding: 10px;
         }
 
         input[type=date] {
@@ -68,34 +90,29 @@
         .table-custom {
             width: 100%;
             color: black;
-            font-weight: bold;
-            margin-top: -2px;
         }
 
         .kendaraan {
-            font-size: 30px;
+            margin-top: 57px;
+            font-size: 28px;
             text-align: center;
             border: 2px solid black;
             background-color: rgb(180, 192, 188);
-            margin-bottom: -2px;
             font-weight: bold;
             letter-spacing: 6px;
+            width: 100%;
             color: black;
-
         }
-
-
 
         .schedule,
         .others {
-            font-size: 30px;
+            font-size: 18px;
             font-weight: 800;
             border: 2px solid black;
             background-color: rgb(203, 203, 84);
             word-spacing: 30px;
             color: black;
             padding-left: 10px;
-            margin-bottom: -1px;
         }
 
         .trouble {
@@ -107,10 +124,9 @@
         table>tbody>tr>td {
             border: 2px solid black;
             border-collapse: collapse;
+            position: relative;
             text-align: center;
-            padding: 0;
-            height: 40px;
-            font-weight: bold;
+            padding: 8px 0;
         }
 
 
@@ -118,7 +134,6 @@
             width: 100%;
             height: 30px;
             border: none;
-            font-weight: bold;
         }
 
         table>tbody>tr>td>input:focus {
@@ -142,11 +157,16 @@
         }
 
         .col-4 {
+            font-size: 16px;
             width: 4%;
         }
 
         .col-10 {
             width: 10%;
+        }
+
+        .col-16 {
+            width: 16%;
         }
 
         .col-20 {
@@ -171,6 +191,7 @@
 
         .col-4 {
             width: 4%;
+            font-size: 16px;
         }
 
         .h30>input {
@@ -204,16 +225,29 @@
             align-items: center;
         }
 
+        .hapus-jadwal {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background: rgb(227, 20, 20);
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .hapus-jadwal:hover {
+            background: rgb(181, 30, 30);
+        }
+
         .kendaraan2 {
-            padding-left: 4px;
             font-size: 24px;
+            padding: 6px;
             text-align: center;
             background-color: rgb(180, 192, 188);
-            margin-bottom: -2px;
             font-weight: bold;
             border: 2px solid black;
             color: black;
-            height: 40px;
+            margin-top: 39px;
         }
 
         .card-tampilkan {
@@ -226,7 +260,6 @@
             align-items: center;
             box-shadow: 0 4px 6px rgb(32 33 36 / 18%);
             font-size: 18px;
-            position: sticky;
         }
 
         label {
@@ -260,13 +293,17 @@
         .bg-yellow {
             background-color: rgb(203, 203, 84);
         }
+
+        .bold {
+            font-weight: 800 !important;
+        }
     </style>
 </head>
 
 <body style="background: rgb(233, 242, 255)">
-
+    @include('sweetalert::alert')
     <div class="card-tampilkan">
-        <form action="" method="post">
+        <form action="" method="get">
             <label for="">Filter :</label>
             <input type="date" class="form-control" name="tanggal" id="tanggal">
             <button class="tampilkan-btn">Tampilkan</button>
@@ -277,290 +314,304 @@
             <a href="{{ route('login') }}" class="input">Input Jadwal</a>
         @endif
     </div>
-
+    @if (isset($kendaraan->tanggal))
+        <a href="{{ url('/jadwal/' . $kendaraan->tanggal) }}" class="hapus-jadwal"
+            onclick="return confirm('Yakin ingin menghapus jadwal ?')">Hapus
+            Jadwal</a>
+    @else
+        <p>Data Tidak ditemukan</p>
+    @endif
     <div class="card">
         <div class="left">
             <div class="tanggal">
                 <label for="tanggal">Tanggal :</label>
-                2 Januari 2023
+                @if (isset($kendaraan->tanggal))
+                    {{ \Carbon\Carbon::parse($kendaraan->tanggal)->format('d-m-Y') }}
+                @endif
             </div>
 
-            <p class="kendaraan">KENDARAAN</p>
+            {{-- <p class="kendaraan">KENDARAAN</p>
             <table class="table1 table-bordered-custom">
                 <tbody>
+
+                </tbody>
+            </table>
+            <p><br></p> --}}
+            {{-- <table class="table-custom table-bordered-custom" style="margin-top: -57px">
+                <tbody>
+
+                </tbody>
+            </table> --}}
+            <table class="table-custom table-bordered-custom" style="margin-top: 30px">
+                <tbody>
                     <tr>
-                        <td class="col-left-1"
+                        <td colspan="16" class="kendaraan">
+                            KENDARAAN
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-left-1" colspan="14"
                             style="font-size:20px;background:hsla(147, 66%, 27%, 0.448);border:2px solid black"><br>
                         </td>
-                        <td class="col-left-2"
+                        <td class="col-left-2" colspan="2"
                             style="font-size:20px;background:hsla(147, 66%, 27%, 0.448);border:2px solid black">
                             <b>Kendaraan
                             </b><br>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <p><br></p>
-            <table class="table-custom table-bordered-custom" style="margin-top: -57px">
-                <tbody>
                     <tr class="th">
-                        <td class="col-12">SUBSEKSI</td>
-                        <td class="col-12"> F.R</td>
-                        <td class="col-12">F.H</td>
-                        <td class="col-12">F.S</td>
+                        <td class="col-12 bold">SUBSEKSI</td>
+                        <td class="col-12" colspan="2"> F.R</td>
+                        <td class="col-12" colspan="2">F.H</td>
+                        <td class="col-12" colspan="2">F.S</td>
                         <td class="col-4">ST</td>
                         <td class="col-4">SW</td>
                         <td class="col-4">AF</td>
                         <td class="col-4">TR</td>
                         <td class="col-4">S</td>
-                        <td class="col-12">Lain-lain</td>
-                        <td class="col-20"
+                        <td class="col-12" colspan="2">Lain-lain</td>
+                        <td class="col-20" colspan="2"
                             style="font-size:20px;background:hsla(147, 66%, 27%, 0.448);border:2px solid black">
                             DI V/S
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-12 bold">PL-1(St-1 & 2)</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl1_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl1_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl1_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl1_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl1_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl1_lainlain2 ?? '' }}</td>
+                        <td class="col-10 bold">FST</td>
+                        <td class="col-10 bold">General</td>
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">PL-2(St-3 & 4)</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl2_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl2_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl2_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl2_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl2_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl2_lainlain2 ?? '' }}</td>
+                        <td rowspan="7">
+                            @foreach ($kendaraanDivs as $kd)
+                                <span>{{ $kd->fst }}<br></span>
+                            @endforeach
+                        </td>
+                        <td rowspan="7">
+                            @foreach ($kendaraanDivs as $kd)
+                                <span>{{ $kd->general }}<br></span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">PL-3(St-5 & 6)</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl3_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl3_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl3_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl3_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->pl3_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->pl3_lainlain2 ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">Start-Up</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->startup_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->startup_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->startup_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->startup_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->startup_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->startup_lainlain2 ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">TRP</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->trp_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->trp_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->trp_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->trp_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->trp_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->trp_lainlain2 ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">GC</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->gc_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->gc_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->gc_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->gc_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->gc_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->gc_lainlain2 ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">CP / CF</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->cpcf_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->cpcf_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->cpcf_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->cpcf_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->cpcf_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->cpcf_lainlain2 ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="col-12 bold">MSR</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fr1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fr2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fh1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fh2 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fs1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_fs2 ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->msr_st ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->msr_sw ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->msr_af ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->msr_tr ?? '' }}</td>
+                        <td class="col-4"> {{ $kendaraan->msr_s ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_lainlain1 ?? '' }}</td>
+                        <td class="col-6"> {{ $kendaraan->msr_lainlain2 ?? '' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule" colspan="16">SCHEDULE PREVENTIVE MAINTENANCE</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bold">KEND</td>
+                        <td colspan="8" class="bold">ISI PEKERJAAN</td>
+                        <td colspan="3" class="bold">MULAI</td>
+                        <td colspan="2" class="bold">SELESAI</td>
+                        <td colspan="2" class="bold">STATUS</td>
+                    </tr>
+
+                    @foreach ($schedule as $s)
+                        <tr>
+                            <td colspan="2">{{ $s->kendaraan ?? '' }}</td>
+                            <td colspan="8">{{ $s->isi_pekerjaan ?? '' }}</td>
+                            <td colspan="3">{{ \Carbon\Carbon::parse($s->mulai)->format('h:i') ?? '' }}</td>
+                            <td colspan="2">{{ \Carbon\Carbon::parse($s->selesai)->format('h:i') ?? '' }}</td>
+                            <td colspan="2">{{ $s->status ?? '' }}</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td class="schedule trouble" colspan="16">TROUBLE</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bold">KEND</td>
+                        <td colspan="4" class="bold">JENIS KERUSAKAN</td>
+                        <td colspan="4" class="bold">ISI PERBAIKAN</td>
+                        <td colspan="3" class="bold">MULAI</td>
+                        <td colspan="2" class="bold">SELESAI</td>
+                        <td colspan="2" class="bold">STATUS</td>
+                    </tr>
+                    @foreach ($trouble as $s)
+                        <tr>
+                            <td colspan="2">{{ $s->kendaraan ?? '' }}</td>
+                            <td colspan="4">{{ $s->jenis_kerusakan ?? '' }}</td>
+                            <td colspan="4">{{ $s->isi_perbaikan ?? '' }}</td>
+                            <td colspan="3">{{ \Carbon\Carbon::parse($s->mulai)->format('h:i') ?? '' }}</td>
+                            <td colspan="2">{{ \Carbon\Carbon::parse($s->selesai)->format('h:i') ?? '' }}</td>
+                            <td colspan="2">{{ $s->status ?? '' }}</td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td class="schedule other" colspan="16">OTHERS</td>
+                    </tr>
+                    <tr>
+                        <td colspan="16" class="bold">KONTENT</td>
+                    </tr>
+                    @foreach ($other as $o)
+                        <tr>
+                            <td colspan="16">{{ $o->kontent }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
-            <table class="table-custom table-bordered-custom">
-                <tbody>
-                    <tr>
-                        <td class="col-12">PL-1(St-1 & 2)</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">FST</td>
-                        <td class="col-10">General</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">PL-2(St-3 & 4)</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">PL-3(St-5 & 6)</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">Start-Up</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">TRP</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">GC</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">CP / CF</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                    <tr>
-                        <td class="col-12">MSR</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6"> test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-4">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-6">test</td>
-                        <td class="col-10">test</td>
-                        <td class="col-10">test</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="wrapp">
 
-                <p class="schedule">SCHEDULE PREVENTIVE MAINTENANCE</p>
-                <table class="table-custom table-bordered-custom">
-                    <tbody id="add-row-schedule">
-                        <tr class="th">
-                            <td class="col-20">KEND.</td>
-                            <td class="col-50"> ISI PEKERJAAN</td>
-                            <td class="col-10"> MULAI</td>
-                            <td class="col-10">SELESAI</td>
-                            <td class="col-10">STATUS</td>
-                        </tr>
-                        <tr>
-                            <td class="col-20">test</td>
-                            <td class="col-50">test</td>
-                            <td class="col-10">test</td>
-                            <td class="col-10">test</td>
-                            <td class="col-10">test</td>
-                        </tr>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="wrapp">
-
-                <p class="schedule trouble">TROUBLE</p>
-                <table class="table-custom table-bordered-custom">
-                    <tbody id="add-row-trouble">
-                        <tr class="th">
-                            <td class="col-20">KEND.</td>
-                            <td class="col-25">JENIS KERUSAKAN</td>
-                            <td class="col-25"> ISI PEKERJAAN</td>
-                            <td class="col-10"> MULAI</td>
-                            <td class="col-10">SELESAI</td>
-                            <td class="col-10">STATUS</td>
-                        </tr>
-                        <tr>
-                            <td class="col-20">test</td>
-                            <td class="col-25">test</td>
-                            <td class="col-25">test</td>
-                            <td class="col-10"> test</td>
-                            <td class="col-10">test</td>
-                            <td class="col-10">test</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="wrapp">
-
-                <p class="schedule others">OTHERS</p>
-                <table class="table-custom table-bordered-custom">
-                    <tbody id="add-row-other">
-                        <tr>
-                            <td width="100%" class="other">
-                                test
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p><br></p>
-            </div>
         </div>
+
 
         <div class="rigth">
             <p class="kendaraan2">DAFTAR KOTRAKTOR YANG BEKERJA DI GEDUNG REDUKSI</p>
-            <table class="table1 table-bordered-custom">
+            <table class="table1 table-bordered-custom" style="margin-top: -25px">
                 <tbody id="add-row-kendaraan">
                     <tr class="th">
-                        <td class="col-4 bg-yellow">NO</td>
-                        <td class="col-6  bg-yellow">TGL</td>
-                        <td class="col-10  bg-yellow">WAKTU</td>
-                        <td class="col-30  bg-yellow">KONTRAKTOR</td>
-                        <td class="col-30  bg-yellow">JENIS PEKERJAAN</td>
-                        <td class="col-10  bg-yellow">LOKASI</td>
-                        <td class="col-10  bg-yellow">KET</td>
+                        <td class="col-4 bg-yellow p-4">NO</td>
+                        <td class="col-16  bg-yellow p-4">TGL</td>
+                        <td class="col-10  bg-yellow p-4">WAKTU</td>
+                        <td class="col-25  bg-yellow p-4">KONTRAKTOR</td>
+                        <td class="col-25  bg-yellow p-4">JENIS PEKERJAAN</td>
+                        <td class="col-10  bg-yellow p-4">LOKASI</td>
+                        <td class="col-10  bg-yellow p-4">KET</td>
                     </tr>
-                    <tr>
-                        <td class="col-4" id="no">1</td>
-                        <td class="col-6 h-30px">test</td>
-                        <td class="col-10 h-30px">test</td>
-                        <td class="col-30 h-30px">test</td>
-                        <td class="col-30 h-30px">test</td>
-                        <td class="col-10 h-30px">test</td>
-                        <td class="col-10 h-30px">test</td>
-                    </tr>
+                    @foreach ($kontraktor as $k)
+                        <tr>
+                            <td class="col-4 p-4" id="no">{{ $loop->iteration }}</td>
+                            <td class="col-16 p-4">
+                                {{ \Carbon\Carbon::parse($k->input_tanggal)->format('d-m-Y') ?? '' }}
+                            </td>
+                            <td class="col-10 p-4">{{ \Carbon\Carbon::parse($k->waktu)->format('h:i') ?? '' }}
+                            </td>
+                            <td class="col-25 p-4">{{ $k->kontraktor ?? '' }}</td>
+                            <td class="col-25 p-4">{{ $k->jenis_pekerjaan ?? '' }}</td>
+                            <td class="col-10 p-4">{{ $k->lokasi ?? '' }}</td>
+                            <td class="col-10 p-4">{{ $k->ket ?? '' }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
     </div>
-
 
     <script>
         $(document).ready(function() {

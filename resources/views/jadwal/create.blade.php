@@ -1,7 +1,5 @@
 @extends('layouts.layout')
 @section('title', 'Tambah Jadwal')
-@include('sweetalert::alert')
-
 @section('css')
     <!-- include libraries(jQuery, bootstrap) -->
 
@@ -218,11 +216,13 @@
         }
     </style>
 @endsection
+
 @section('content')
+    @include('sweetalert::alert')
     @if (Session::get('pesan'))
-        <div class="alert alert-danger pesan-erorr d-flex justify-content-between align-items-center">
+        <div id="alert" class="alert alert-danger pesan-erorr d-flex justify-content-between align-items-center">
             <p> {{ Session::get('pesan') }} </p>
-            <p style="font-weight: bold" id="close">X</p>
+            <p style="font-weight: bold;cursor:pointer;" id="close">X</p>
         </div>
     @endif
     <div class="card">
@@ -287,7 +287,7 @@
                         <td class="col-6"><input type="text" name="pl1_fh1"></td>
                         <td class="col-6"><input type="text" name="pl1_fh2"></td>
                         <td class="col-6"><input type="text" name="pl1_fs1"></td>
-                        <td class="col-6"><input type="text" name="pl1_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl1_fs2"></td>
                         <td class="col-4"><input type="text" name="pl1_st"></td>
                         <td class="col-4"><input type="text" name="pl1_sw"></td>
                         <td class="col-4"><input type="text" name="pl1_af"></td>
@@ -305,7 +305,7 @@
                         <td class="col-6"><input type="text" name="pl2_fh1"></td>
                         <td class="col-6"><input type="text" name="pl2_fh2"></td>
                         <td class="col-6"><input type="text" name="pl2_fs1"></td>
-                        <td class="col-6"><input type="text" name="pl2_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl2_fs2"></td>
                         <td class="col-4"><input type="text" name="pl2_st"></td>
                         <td class="col-4"><input type="text" name="pl2_sw"></td>
                         <td class="col-4"><input type="text" name="pl2_af"></td>
@@ -323,7 +323,7 @@
                         <td class="col-6"><input type="text" name="pl3_fh1"></td>
                         <td class="col-6"><input type="text" name="pl3_fh2"></td>
                         <td class="col-6"><input type="text" name="pl3_fs1"></td>
-                        <td class="col-6"><input type="text" name="pl3_fr2"></td>
+                        <td class="col-6"><input type="text" name="pl3_fs2"></td>
                         <td class="col-4"><input type="text" name="pl3_st"></td>
                         <td class="col-4"><input type="text" name="pl3_sw"></td>
                         <td class="col-4"><input type="text" name="pl3_af"></td>
@@ -341,7 +341,7 @@
                         <td class="col-6"><input type="text" name="startup_fh1"></td>
                         <td class="col-6"><input type="text" name="startup_fh2"></td>
                         <td class="col-6"><input type="text" name="startup_fs1"></td>
-                        <td class="col-6"><input type="text" name="startup_fr2"></td>
+                        <td class="col-6"><input type="text" name="startup_fs2"></td>
                         <td class="col-4"><input type="text" name="startup_st"></td>
                         <td class="col-4"><input type="text" name="startup_sw"></td>
                         <td class="col-4"><input type="text" name="startup_af"></td>
@@ -359,7 +359,7 @@
                         <td class="col-6"><input type="text" name="trp_fh1"></td>
                         <td class="col-6"><input type="text" name="trp_fh2"></td>
                         <td class="col-6"><input type="text" name="trp_fs1"></td>
-                        <td class="col-6"><input type="text" name="trp_fr2"></td>
+                        <td class="col-6"><input type="text" name="trp_fs2"></td>
                         <td class="col-4"><input type="text" name="trp_st"></td>
                         <td class="col-4"><input type="text" name="trp_sw"></td>
                         <td class="col-4"><input type="text" name="trp_af"></td>
@@ -377,7 +377,7 @@
                         <td class="col-6"><input type="text" name="gc_fh1"></td>
                         <td class="col-6"><input type="text" name="gc_fh2"></td>
                         <td class="col-6"><input type="text" name="gc_fs1"></td>
-                        <td class="col-6"><input type="text" name="gc_fr2"></td>
+                        <td class="col-6"><input type="text" name="gc_fs2"></td>
                         <td class="col-4"><input type="text" name="gc_st"></td>
                         <td class="col-4"><input type="text" name="gc_sw"></td>
                         <td class="col-4"><input type="text" name="gc_af"></td>
@@ -395,7 +395,7 @@
                         <td class="col-6"><input type="text" name="cpcf_fh1"></td>
                         <td class="col-6"><input type="text" name="cpcf_fh2"></td>
                         <td class="col-6"><input type="text" name="cpcf_fs1"></td>
-                        <td class="col-6"><input type="text" name="cpcf_fr2"></td>
+                        <td class="col-6"><input type="text" name="cpcf_fs2"></td>
                         <td class="col-4"><input type="text" name="cpcf_st"></td>
                         <td class="col-4"><input type="text" name="cpcf_sw"></td>
                         <td class="col-4"><input type="text" name="cpcf_af"></td>
@@ -413,7 +413,7 @@
                         <td class="col-6"><input type="text" name="msr-_h1"></td>
                         <td class="col-6"><input type="text" name="msr_fh2"></td>
                         <td class="col-6"><input type="text" name="msr_fs1"></td>
-                        <td class="col-6"><input type="text" name="msr_fr2"></td>
+                        <td class="col-6"><input type="text" name="msr_fs2"></td>
                         <td class="col-4"><input type="text" name="msr_st"></td>
                         <td class="col-4"><input type="text" name="msr_sw"></td>
                         <td class="col-4"><input type="text" name="msr_af"></td>
@@ -570,7 +570,7 @@
                     <tr class="child-schedule">
                         <td class="col-20"><input type="text" name="kendaraan_schedule[]"></td>
                         <td class="col-25"><input type="text" name="isipekerjaan_schedule[]"></td>
-                        <td class="col-10"> <input type="time" name="mulai_shedule[]"></td>
+                        <td class="col-10"> <input type="time" name="mulai_schedule[]"></td>
                         <td class="col-10"><input type="time" name="selesai_schedule[]"></td>
                         <td class="col-10"><input type="text" name="status_schedule[]"></td>
                         <td>
@@ -628,8 +628,9 @@
                 --no
                 $(this).parents('.child-kendaraan').remove()
             })
+
             $('#close').on('click', function() {
-                $('.pesan-erorr').css('display', 'none')
+                $('#alert').remove()
             })
 
         });

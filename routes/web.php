@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/', [KendaraanController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/jadwal/{tanggal}', [KendaraanController::class, 'delete']);
     Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
     // hanya admin yang dapat akses route ini
     Route::resource('/jadwal', KendaraanController::class);
