@@ -280,6 +280,266 @@ class KendaraanController extends Controller
         Alert::success('Tersimpan', 'Data berhasil tersimpan');
         return redirect()->back();
     }
+
+    public function edit($tanggal)
+    {
+        $data = [
+            'trouble' => Trouble::where('tanggal', $tanggal)->get(),
+            'kendaraan' =>  Kendaraan::where('tanggal', $tanggal)->first(),
+            'kendaraanDivs' =>  KendaraanDiVS::where('tanggal', $tanggal)->get(),
+            'kontraktor' =>  Kontraktor::where('tanggal', $tanggal)->get(),
+            'schedule' =>  Schedule::where('tanggal', $tanggal)->get(),
+            'other' =>  Other::where('tanggal', $tanggal)->get(),
+
+        ];
+        return view('jadwal.edit', $data);
+    }
+
+    public function update(Request $request, $tanggal)
+    {
+        $request->validate([
+            'tanggal' => 'required|date'
+        ], [
+            'tanggal' => 'Tanggal Wajib Diisi!!'
+        ]);
+        $exist_tanggal = Kendaraan::where('tanggal', $request->tanggal)->exists();
+
+        if (!$exist_tanggal) {
+            // Alert::error('Gagal', 'Data dengan tanggal ');
+            return redirect()->url('/jadwal/edit/' . $request->tanggal)->with('pesan',  'Data dengan tanggal ' . Carbon::parse($request->tanggal)->format('d-m-Y') . ' sudah ada disistem, silahkan input tanggal yang berbeda !!');
+        }
+        DB::beginTransaction();
+        try {
+            $edit = Kendaraan::where('tanggal', $tanggal)->first();
+            $edit->tanggal = $request->tanggal;
+
+            $edit->pl1_fr1 = $request->pl1_fr1;
+            $edit->pl1_fr2 = $request->pl1_fr2;
+            $edit->pl1_fh1 = $request->pl1_fh1;
+            $edit->pl1_fh2 = $request->pl1_fh2;
+            $edit->pl1_fs1 = $request->pl1_fs1;
+            $edit->pl1_fs2 = $request->pl1_fs2;
+            $edit->pl1_st = $request->pl1_st;
+            $edit->pl1_sw = $request->pl1_sw;
+            $edit->pl1_af = $request->pl1_af;
+            $edit->pl1_tr = $request->pl1_tr;
+            $edit->pl1_s = $request->pl1_s;
+            $edit->pl1_lainlain1 = $request->pl1_lainlain1;
+            $edit->pl1_lainlain2 = $request->pl1_lainlain2;
+
+            $edit->pl2_fr1 = $request->pl2_fr1;
+            $edit->pl2_fr2 = $request->pl2_fr2;
+            $edit->pl2_fh1 = $request->pl2_fh1;
+            $edit->pl2_fh2 = $request->pl2_fh2;
+            $edit->pl2_fs1 = $request->pl2_fs1;
+            $edit->pl2_fs2 = $request->pl2_fs2;
+            $edit->pl2_st = $request->pl2_st;
+            $edit->pl2_sw = $request->pl2_sw;
+            $edit->pl2_af = $request->pl2_af;
+            $edit->pl2_tr = $request->pl2_tr;
+            $edit->pl2_s = $request->pl2_s;
+            $edit->pl2_lainlain1 = $request->pl2_lainlain1;
+            $edit->pl2_lainlain2 = $request->pl2_lainlain2;
+
+            $edit->pl3_fr1 = $request->pl3_fr1;
+            $edit->pl3_fr2 = $request->pl3_fr2;
+            $edit->pl3_fh1 = $request->pl3_fh1;
+            $edit->pl3_fh2 = $request->pl3_fh2;
+            $edit->pl3_fs1 = $request->pl3_fs1;
+            $edit->pl3_fs2 = $request->pl3_fs2;
+            $edit->pl3_st = $request->pl3_st;
+            $edit->pl3_sw = $request->pl3_sw;
+            $edit->pl3_af = $request->pl3_af;
+            $edit->pl3_tr = $request->pl3_tr;
+            $edit->pl3_s = $request->pl3_s;
+            $edit->pl3_lainlain1 = $request->pl3_lainlain1;
+            $edit->pl3_lainlain2 = $request->pl3_lainlain2;
+
+            $edit->startup_fr1 = $request->startup_fr1;
+            $edit->startup_fr2 = $request->startup_fr2;
+            $edit->startup_fh1 = $request->startup_fh1;
+            $edit->startup_fh2 = $request->startup_fh2;
+            $edit->startup_fs1 = $request->startup_fs1;
+            $edit->startup_fs2 = $request->startup_fs2;
+            $edit->startup_st = $request->startup_st;
+            $edit->startup_sw = $request->startup_sw;
+            $edit->startup_af = $request->startup_af;
+            $edit->startup_tr = $request->startup_tr;
+            $edit->startup_s = $request->startup_s;
+            $edit->startup_lainlain1 = $request->startup_lainlain1;
+            $edit->startup_lainlain2 = $request->startup_lainlain2;
+
+            $edit->trp_fr1 = $request->trp_fr1;
+            $edit->trp_fr2 = $request->trp_fr2;
+            $edit->trp_fh1 = $request->trp_fh1;
+            $edit->trp_fh2 = $request->trp_fh2;
+            $edit->trp_fs1 = $request->trp_fs1;
+            $edit->trp_fs2 = $request->trp_fs2;
+            $edit->trp_st = $request->trp_st;
+            $edit->trp_sw = $request->trp_sw;
+            $edit->trp_af = $request->trp_af;
+            $edit->trp_tr = $request->trp_tr;
+            $edit->trp_s = $request->trp_s;
+            $edit->trp_lainlain1 = $request->trp_lainlain1;
+            $edit->trp_lainlain2 = $request->trp_lainlain2;
+
+            $edit->gc_fr1 = $request->gc_fr1;
+            $edit->gc_fr2 = $request->gc_fr2;
+            $edit->gc_fh1 = $request->gc_fh1;
+            $edit->gc_fh2 = $request->gc_fh2;
+            $edit->gc_fs1 = $request->gc_fs1;
+            $edit->gc_fs2 = $request->gc_fs2;
+            $edit->gc_st = $request->gc_st;
+            $edit->gc_sw = $request->gc_sw;
+            $edit->gc_af = $request->gc_af;
+            $edit->gc_tr = $request->gc_tr;
+            $edit->gc_s = $request->gc_s;
+            $edit->gc_lainlain1 = $request->gc_lainlain1;
+            $edit->gc_lainlain2 = $request->gc_lainlain2;
+
+            $edit->cpcf_fr1 = $request->cpcf_fr1;
+            $edit->cpcf_fr2 = $request->cpcf_fr2;
+            $edit->cpcf_fh1 = $request->cpcf_fh1;
+            $edit->cpcf_fh2 = $request->cpcf_fh2;
+            $edit->cpcf_fs1 = $request->cpcf_fs1;
+            $edit->cpcf_fs2 = $request->cpcf_fs2;
+            $edit->cpcf_st = $request->cpcf_st;
+            $edit->cpcf_sw = $request->cpcf_sw;
+            $edit->cpcf_af = $request->cpcf_af;
+            $edit->cpcf_tr = $request->cpcf_tr;
+            $edit->cpcf_s = $request->cpcf_s;
+            $edit->cpcf_lainlain1 = $request->cpcf_lainlain1;
+            $edit->cpcf_lainlain2 = $request->cpcf_lainlain2;
+
+            $edit->msr_fr1 = $request->msr_fr1;
+            $edit->msr_fr2 = $request->msr_fr2;
+            $edit->msr_fh1 = $request->msr_fh1;
+            $edit->msr_fh2 = $request->msr_fh2;
+            $edit->msr_fs1 = $request->msr_fs1;
+            $edit->msr_fs2 = $request->msr_fs2;
+            $edit->msr_st = $request->msr_st;
+            $edit->msr_sw = $request->msr_sw;
+            $edit->msr_af = $request->msr_af;
+            $edit->msr_tr = $request->msr_tr;
+            $edit->msr_s = $request->msr_s;
+            $edit->msr_lainlain1 = $request->msr_lainlain1;
+            $edit->msr_lainlain2 = $request->msr_lainlain2;
+            $edit->save();
+
+            Trouble::where('tanggal', $tanggal)->delete();
+            KendaraanDiVS::where('tanggal', $tanggal)->delete();
+            Kontraktor::where('tanggal', $tanggal)->delete();
+            Schedule::where('tanggal', $tanggal)->delete();
+            Other::where('tanggal', $tanggal)->delete();
+
+            $schedule = [];
+            $trouble = [];
+            $others = [];
+            $kontraktors = [];
+            $kendaraan_dvs = [];
+            // save schedule
+            $kendaraan = $request->input('kendaraan_schedule', []);
+            $isi_pekerjaan = $request->input('isipekerjaan_schedule', []);
+            $mulai = $request->input('mulai_schedule', []);
+            $selesai = $request->input('selesai_schedule', []);
+            $status = $request->input('status_schedule', []);
+
+            foreach ($kendaraan as $index => $value) {
+                $schedule[] = [
+                    'kendaraan' => $kendaraan[$index],
+                    'tanggal' => $request->tanggal,
+                    'isi_pekerjaan' => $isi_pekerjaan[$index],
+                    'mulai' => $mulai[$index],
+                    'selesai' => $selesai[$index],
+                    'status' => $status[$index],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+            DB::table('schedules')->insert($schedule);
+
+            // save trouble
+            $kendaraan_trouble = $request->input('kendaraan_trouble', []);
+            $jenis_kerusakan = $request->input('jeniskerusakan_trouble', []);
+            $isiperbaikan = $request->input('isiperbaikan_trouble', []);
+            $mulai_trouble = $request->input('mulai_trouble', []);
+            $selesai_trouble = $request->input('selesai_trouble', []);
+            $status_trouble = $request->input('status_trouble', []);
+
+            foreach ($kendaraan_trouble as $index => $value) {
+                $trouble[] = [
+                    'kendaraan' => $kendaraan_trouble[$index],
+                    'tanggal' => $request->tanggal,
+                    'jenis_kerusakan' => $jenis_kerusakan[$index],
+                    'isi_perbaikan' => $isiperbaikan[$index],
+                    'mulai' => $mulai_trouble[$index],
+                    'selesai' => $selesai_trouble[$index],
+                    'status' => $status_trouble[$index],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+            DB::table('trouble')->insert($trouble);
+
+            // save other
+            $other = $request->input('others', []);
+            foreach ($other as $index => $value) {
+                $others[] = [
+                    'tanggal' => $request->tanggal,
+                    'kontent' => $other[$index],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+            DB::table('others')->insert($others);
+
+
+            // save kendaraan DI v/s
+            $fst = $request->input('fst', []);
+            $general = $request->input('general', []);
+
+            foreach ($fst as $index => $value) {
+                $kendaraan_dvs[] = [
+                    'tanggal' => $request->tanggal,
+                    'fst' => $fst[$index],
+                    'general' => $general[$index],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+            DB::table('kendaraan_di_v_s')->insert($kendaraan_dvs);
+
+            // save kontraktor
+            $kontraktor = $request->input('kontraktor', []);
+            $waktu = $request->input('waktu_kendaraan', []);
+            $tanggal_kendaraan = $request->input('tgl_kendaraan', []);
+            $jenis_pekerjaan = $request->input('jenis_pekerjaan', []);
+            $lokasi = $request->input('lokasi', []);
+            $ket = $request->input('ket', []);
+
+            foreach ($kontraktor as $index => $value) {
+                $kontraktors[] = [
+                    'tanggal' => $request->tanggal,
+                    'waktu' => $waktu[$index],
+                    'kontraktor' => $kontraktor[$index],
+                    'input_tanggal' => $tanggal_kendaraan[$index],
+                    'jenis_pekerjaan' => $jenis_pekerjaan[$index],
+                    'lokasi' => $lokasi[$index],
+                    'ket' => $ket[$index],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+            DB::table('kontraktors')->insert($kontraktors);
+            DB::commit();
+            Alert::success('Tersimpan', 'Data berhasil diubah');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Alert::error('Gagal', 'Data gagal diubah');
+            return redirect()->back();
+        }
+    }
     public function delete($tanggal)
     {
         Trouble::where('tanggal', $tanggal)->delete();

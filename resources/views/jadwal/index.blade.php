@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- include libraries(jQuery, bootstrap) -->
+    <link href="{{ asset('asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <style>
         * {
@@ -230,13 +231,16 @@
             display: inline-block;
             padding: 8px 12px;
             border-radius: 4px;
-            background: rgb(227, 20, 20);
+            background: rgb(207, 58, 58);
             text-decoration: none;
             color: #fff;
         }
 
         .hapus-jadwal:hover {
-            background: rgb(181, 30, 30);
+            background: rgb(179, 56, 56);
+            transition: .5s;
+            box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.4);
+
         }
 
         .kendaraan2 {
@@ -253,7 +257,7 @@
         .card-tampilkan {
             /* background: rgb(96, 96, 96); */
             background-color: rgb(255, 255, 255);
-            padding: 20px;
+            padding: 14px;
             border-radius: 4px;
             display: flex;
             justify-content: space-between;
@@ -290,6 +294,14 @@
             box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.4);
         }
 
+        .edit {
+            background-color: rgb(180, 192, 188);
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+
+        }
+
         .bg-yellow {
             background-color: rgb(203, 203, 84);
         }
@@ -314,12 +326,18 @@
             <a href="{{ route('login') }}" class="input">Input Jadwal</a>
         @endif
     </div>
-    @if (isset($kendaraan->tanggal))
-        <a href="{{ url('/jadwal/' . $kendaraan->tanggal) }}" class="hapus-jadwal"
-            onclick="return confirm('Yakin ingin menghapus jadwal ?')">Hapus
-            Jadwal</a>
-    @else
-        <p>Data Tidak ditemukan</p>
+    @if (isset(auth()->user()->name))
+        @if (isset($kendaraan->tanggal))
+            <a href="/hapus/jadwal/{{ $kendaraan->tanggal }}" class="hapus-jadwal"
+                onclick="return confirm('Yakin ingin menghapus jadwal ?')"> <i class="fas fa-trash"
+                    style="margin-right:4px"></i>Hapus
+                Jadwal</a>
+            <a href="/jadwal/edit/{{ $kendaraan->tanggal }}" class="input edit"> <i class="fas fa-edit"
+                    style="margin-right:4px"></i>
+                Edit Jadwal</a>
+        @else
+            <p>Data Tidak ditemukan</p>
+        @endif
     @endif
     <div class="card">
         <div class="left">
@@ -565,9 +583,7 @@
                     <tr>
                         <td class="schedule other" colspan="16">OTHERS</td>
                     </tr>
-                    <tr>
-                        <td colspan="16" class="bold">KONTENT</td>
-                    </tr>
+
                     @foreach ($other as $o)
                         <tr>
                             <td colspan="16">{{ $o->kontent }}</td>

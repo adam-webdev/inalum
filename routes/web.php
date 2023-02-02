@@ -22,10 +22,12 @@ Auth::routes();
 Route::get('/', [KendaraanController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/jadwal/{tanggal}', [KendaraanController::class, 'delete']);
+    Route::get('/hapus/jadwal/{tanggal}', [KendaraanController::class, 'delete']);
     Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
     // hanya admin yang dapat akses route ini
     Route::resource('/jadwal', KendaraanController::class);
+    Route::get('/jadwal/edit/{tanggal}', [KendaraanController::class, 'edit']);
+    Route::put('/jadwal/update/{tanggal}', [KendaraanController::class, 'update']);
     // Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
 
     Route::resource('/user', UserController::class);
