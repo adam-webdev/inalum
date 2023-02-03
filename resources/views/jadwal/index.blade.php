@@ -25,16 +25,16 @@
             margin-top: 80px;
             display: flex;
             width: 100%;
-            justify-content: space-between;
+            grid-row-gap: 10px;
+            box-sizing: border-box;
         }
 
         .left {
-
-            width: 55%;
+            box-sizing: border-box;
         }
 
         .rigth {
-            width: 45%;
+            box-sizing: border-box;
             margin-left: 15px;
         }
 
@@ -177,7 +177,6 @@
 
         .col-25 {
             width: 25%;
-            font-weight: bold;
         }
 
         .col-50 {
