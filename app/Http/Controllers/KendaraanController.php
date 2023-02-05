@@ -25,7 +25,7 @@ class KendaraanController extends Controller
                 $tanggal = $request->tanggal;
             }
         } else {
-            $tanggal = '2023-01-29';
+            $tanggal = Carbon::now()->format('Y-m-d');
         }
 
         $data = [

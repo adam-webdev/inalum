@@ -35,7 +35,7 @@
 
         .rigth {
             box-sizing: border-box;
-            margin-left: 15px;
+            margin-left: 5px;
         }
 
         @media only screen and (max-width: 1200px) {
